@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class LoginActivity extends Activity {
-	private int test;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
