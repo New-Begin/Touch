@@ -4,5 +4,7 @@
     <string name="app_name">Touch</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <color name="background_color">#1c86ee</color>
+    <color name="white">#ffffff</color>
 
 </resources>
