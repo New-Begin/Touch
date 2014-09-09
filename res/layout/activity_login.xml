@@ -12,7 +12,7 @@
 		android:orientation ="vertical" > 
 		
         <EditText 
-			android:id ="@+id/telephone" 
+			android:id ="@+id/user" 
 			android:layout_width ="fill_parent" 
 			android:layout_height ="44.0dip" 
 			android:layout_weight ="1" 
@@ -21,7 +21,8 @@
 			android:singleLine ="true" 
 			android:textSize ="16sp"
 			android:paddingBottom="10.0dip"
-			android:background="@color/white" > 
+			android:background="@color/white"
+			android:hint="邮箱/电话号码/用户名" > 
 		 
 		</EditText> 
 		

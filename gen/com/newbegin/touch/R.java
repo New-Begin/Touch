@@ -33,7 +33,7 @@ public final class R {
         public static final int input=0x7f090000;
         public static final int loginBtn=0x7f090003;
         public static final int password=0x7f090002;
-        public static final int telephone=0x7f090001;
+        public static final int user=0x7f090001;
     }
     public static final class layout {
         public static final int activity_login=0x7f030000;
