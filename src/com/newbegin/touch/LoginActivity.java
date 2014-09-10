@@ -37,7 +37,7 @@ public class LoginActivity extends Activity {
 		user = (EditText) findViewById(R.id.user);
 		password = (EditText) findViewById(R.id.password);
 		loginBtn = (Button) findViewById(R.id.loginBtn);	
-		registerBtn = (Button) findViewById(R.id.registerBtn);	
+		registerBtn = (Button) findViewById(R.id.btn_register);	
 		
 		init();
 	}
