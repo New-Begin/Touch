@@ -26,5 +26,8 @@
             </intent-filter>
         </activity>
     </application>
+    
+  <!--分配权限，切记 -->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
 </manifest>

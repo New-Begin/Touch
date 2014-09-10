@@ -1,8 +1,21 @@
 package com.newbegin.touch;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+import com.newbegin.touch.utils.JsonUtil;
+import com.newbegin.touch.utils.SocketConnect;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -14,16 +27,25 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * µÇÂ¼½çÃæ
+ * ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½
  * @author new begin
  *
  */
 public class LoginActivity extends Activity {
-	private TelephonyManager telephonyManager;//µç»°ºÅÂë¹ÜÀíÆ÷
-	private EditText user;//µç»°ºÅÂë
-	private EditText password;//ÃÜÂë
-	private Button loginBtn;//µÇÂ¼°´Å¥
-
+	private TelephonyManager telephonyManager;//ï¿½ç»°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private EditText user;//ï¿½ç»°ï¿½ï¿½ï¿½ï¿½
+	private EditText password;//ï¿½ï¿½ï¿½ï¿½
+	private Button loginBtn;//ï¿½ï¿½Â¼ï¿½ï¿½Å¥
+	
+	//test zhty
+//	private static final String HOST = "192.168.0.100";
+//	private static final int PORT = 9997;
+//	private Socket socket = null;
+//	private BufferedReader in = null;
+//	private PrintWriter out = null;
+//	private String content = "";
+	public static SocketConnect sc;
+	
 	/**
 	 *
 	 */
@@ -35,8 +57,13 @@ public class LoginActivity extends Activity {
 		user = (EditText) findViewById(R.id.user);
 		password = (EditText) findViewById(R.id.password);
 		loginBtn = (Button) findViewById(R.id.loginBtn);	
-
+		sc = new SocketConnect();
 		init();
+		
+		//test start socket
+		
+
+//		mThread.start();
 	}
 
 	@Override
@@ -59,10 +86,10 @@ public class LoginActivity extends Activity {
 	}
 	
 	/**
-	 * ³õÊ¼»¯º¯Êý
+	 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void init(){
-		//»ñÈ¡±¾»úµç»°ºÅÂë
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ç»°ï¿½ï¿½ï¿½ï¿½
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneId = telephonyManager.getLine1Number();
 		user.setText(phoneId);
@@ -71,7 +98,9 @@ public class LoginActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+
+				//zhty test
+				sc.sendInfo(JsonUtil.UserPwd2Json("zhengty", "123456"));
 				
 				String usrStr = user.getText().toString();
 				String pwdStr = password.getText().toString();
@@ -79,7 +108,7 @@ public class LoginActivity extends Activity {
 				if(usrStr.equals("")){
 					Log.i("init", "usr");
 					Toast toast1 = Toast.makeText(getApplicationContext(),
-						     "ÇëÊäÈëÓÃ»§Ãû", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast1.setGravity(Gravity.CENTER, 0, 0);
 					toast1.show();
 					return;
@@ -87,7 +116,7 @@ public class LoginActivity extends Activity {
 				else if(pwdStr.equals("")){
 					Log.i("init", "pwd");
 					Toast toast2 = Toast.makeText(getApplicationContext(),
-						     "ÇëÊäÈëÃÜÂë", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast2.setGravity(Gravity.CENTER, 0, 0);
 					toast2.show();
 					return;
@@ -96,27 +125,84 @@ public class LoginActivity extends Activity {
 				Log.i("init", usrStr);
 				Log.i("init", pwdStr);
 				if(confirm(usrStr,pwdStr)){
-					//Ìø×ªµ½Æ¥ÅäActivity
+					//ï¿½ï¿½×ªï¿½ï¿½Æ¥ï¿½ï¿½Activity
 				}
 				else{
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "ÓÃ»§Ãû»òÃÜÂë´íÎó", Toast.LENGTH_LONG);
+						     "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					password.setText("");
 				}
+				
 			}
 			
 		});
 	}
 	
 	/**
-	 * ÑéÖ¤ÓÃ»§Ãû¡¢ÃÜÂëÊÇ·ñÕýÈ·
+	 * ï¿½ï¿½Ö¤ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½È·
 	 * @param usrStr 
 	 * @param pwdStr
-	 * @return ÕýÈ··µ»Øtrue
+	 * @return ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½true
 	 */
 	private boolean confirm(String usrStr,String pwdStr){
 		return false;
+	}
+	
+	//test
+	
+//	private Thread mThread = new Thread(new Runnable() {
+//
+//		@Override
+//		public void run() {
+//			Log.i("tag", "zhty run...");
+//			try {
+//				socket = new Socket(HOST, PORT);
+//				in = new BufferedReader(new InputStreamReader(
+//						socket.getInputStream()));
+//				out = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
+//						socket.getOutputStream())), true);
+//			} catch (IOException ex) {
+//				ex.printStackTrace();
+//			}
+//
+//			try {
+//				while (true) {
+//					if (socket.isConnected()) {
+//						if (!socket.isInputShutdown()) {
+//							if ((content = in.readLine()) != null) {
+//								content += "\n";
+//								mHandler.sendMessage(mHandler.obtainMessage());
+//							} else {
+//							}
+//						}
+//					}
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			
+//		}
+//	});
+//
+//	private Handler mHandler = new Handler() {
+//
+//		@Override
+//		public void handleMessage(Message msg) {
+//			super.handleMessage(msg);
+//			Log.i("tag", "content:" + content);
+//			System.out.println("port:" + socket.getPort());
+//			System.out.println("Localport:" + socket.getLocalPort());
+//			System.out.println("LocalAddress:" + socket.getLocalAddress());
+//			System.out.println("LocalSocketAddress:"
+//					+ socket.getLocalSocketAddress());
+//		}
+//	};
+	
+	@Override
+	public void onDestroy(){
+		sc.closeConnect();
+		super.onDestroy();
 	}
 }
