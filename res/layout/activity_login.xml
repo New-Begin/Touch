@@ -60,5 +60,18 @@
 			android:gravity ="center" 
 			android:textSize ="20dp" 
 			android:text = "登录" /> 
+	<Button 
+			android:id ="@+id/registerBtn" 
+			android:layout_width ="270dp" 
+			android:background ="@color/white" 
+			android:paddingTop ="5.0dip" 
+			android:layout_height ="50dp" 
+			android:layout_marginLeft ="28.0dip" 
+			android:layout_marginRight ="28.0dip" 
+			android:layout_marginTop ="12.0dip" 
+			android:layout_below ="@+id/loginBtn" 
+			android:gravity ="center" 
+			android:textSize ="20dp" 
+			android:text = "注册" /> 
 
 </RelativeLayout>

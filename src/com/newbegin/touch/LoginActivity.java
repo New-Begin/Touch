@@ -1,7 +1,9 @@
 package com.newbegin.touch;
 
 import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -23,7 +25,7 @@ public class LoginActivity extends Activity {
 	private EditText user;//µç»°ºÅÂë
 	private EditText password;//ÃÜÂë
 	private Button loginBtn;//µÇÂ¼°´Å¥
-
+	private Button registerBtn;//×¢²á°´Å¥
 	/**
 	 *
 	 */
@@ -35,7 +37,8 @@ public class LoginActivity extends Activity {
 		user = (EditText) findViewById(R.id.user);
 		password = (EditText) findViewById(R.id.password);
 		loginBtn = (Button) findViewById(R.id.loginBtn);	
-
+		registerBtn = (Button) findViewById(R.id.registerBtn);	
+		
 		init();
 	}
 
@@ -51,10 +54,6 @@ public class LoginActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -105,6 +104,21 @@ public class LoginActivity extends Activity {
 					toast3.show();
 					password.setText("");
 				}
+			}
+			
+		});
+		
+		registerBtn.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				//ComponentName componentName = new ComponentName(LoginActivity.this,"com.newbegin.RegisterActivity");
+				Intent intent=new Intent();
+				//intent.setComponent(componentName);
+				intent.setClass(LoginActivity.this, RegisterActivity.class);
+				startActivity(intent);
 			}
 			
 		});
