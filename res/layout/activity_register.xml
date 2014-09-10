@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:gravity="center"
+    android:gravity="center|top"
     android:orientation="vertical"
     tools:context="com.newbegin.touch.RegisterActivity" >
 
@@ -26,6 +26,7 @@
             android:layout_weight="1"
             android:background="@color/white"
             android:ems="10"
+            android:gravity="center_vertical"
             android:hint="邮箱"
             android:imeOptions="actionDone"
             android:paddingBottom="10.0dip"
@@ -51,8 +52,15 @@
             android:maxLength="16"
             android:maxLines="1"
             android:textColor="#ff1d1d1d"
-            android:textColorHint="#ff666666"
             android:textSize="16.0sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginLeft="1.0px"
+            android:layout_marginRight="1.0px"
+            android:background="#ffc0c3c4" />
+
         <EditText
             android:id="@+id/password1"
             android:layout_width="fill_parent"
@@ -64,7 +72,6 @@
             android:maxLength="16"
             android:maxLines="1"
             android:textColor="#ff1d1d1d"
-            android:textColorHint="#ff666666"
             android:textSize="16.0sp" />
     </LinearLayout>
 
