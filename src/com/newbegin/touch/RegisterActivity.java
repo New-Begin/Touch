@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 	
+	enum Result{SUCESS,EMAIL_EXSIT,NETWORK_ERROR};
+	
 	private TelephonyManager telephonyManager;//电话号码管理器
 	private EditText user;//邮箱账号
 	private EditText password;//密码
@@ -88,7 +90,7 @@ public class RegisterActivity extends Activity {
 				}
 
 				if(pwdStr.equals(pwdStr1)){
-					if(register(usrStr,pwdStr)){
+					if(register(usrStr,pwdStr) == Result.SUCESS){
 						Toast toast4 = Toast.makeText(getApplicationContext(),
 							     "注册成功", Toast.LENGTH_LONG);
 						toast4.setGravity(Gravity.CENTER, 0, 0);
@@ -138,8 +140,14 @@ public class RegisterActivity extends Activity {
 		
 	}
 	
-	private boolean register(String usr,String pwd){
-		return true;
+	/**
+	 * 注册到服务器
+	 * @param usr
+	 * @param pwd
+	 * @return SUCESS代表注册成功 EMAIL_EXSIT代表邮箱已经存在NETWORK_ERROR代表网络异常
+	 */
+	private Result register(String usr,String pwd){
+		return Result.SUCESS;
 	}
 	
 	/**
