@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:gravity="center"
+    android:gravity="center|top"
     android:orientation="vertical"
-    tools:context="com.newbegin.touch.LoginActivity" >
+    tools:context="com.newbegin.touch.RegisterActivity" >
 
     <LinearLayout
         android:id="@+id/input"
@@ -25,13 +25,12 @@
             android:layout_height="44.0dip"
             android:layout_weight="1"
             android:background="@color/white"
-            android:gravity="center_vertical"
             android:ems="10"
+            android:gravity="center_vertical"
             android:hint="邮箱"
             android:imeOptions="actionDone"
             android:paddingBottom="10.0dip"
             android:singleLine="true"
-            
             android:textSize="16sp" >
         </EditText>
 
@@ -53,12 +52,31 @@
             android:maxLength="16"
             android:maxLines="1"
             android:textColor="#ff1d1d1d"
-            
+            android:textSize="16.0sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1.0px"
+            android:layout_marginLeft="1.0px"
+            android:layout_marginRight="1.0px"
+            android:background="#ffc0c3c4" />
+
+        <EditText
+            android:id="@+id/password1"
+            android:layout_width="fill_parent"
+            android:layout_height="44.0dip"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:hint="确认密码"
+            android:inputType="textPassword"
+            android:maxLength="16"
+            android:maxLines="1"
+            android:textColor="#ff1d1d1d"
             android:textSize="16.0sp" />
     </LinearLayout>
 
     <Button
-        android:id="@+id/loginBtn"
+        android:id="@+id/registerBtn"
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:layout_below="@+id/input"
@@ -67,22 +85,7 @@
         android:background="@color/white"
         android:gravity="center"
         android:paddingTop="5.0dip"
-        android:text="登录"
+        android:text="确定"
         android:textSize="20dp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="110dip"
-            android:layout_height="35dip"
-            android:background="#00000000"
-            android:gravity="center"
-            android:text="注册" />
-    </LinearLayout>
 
 </RelativeLayout>

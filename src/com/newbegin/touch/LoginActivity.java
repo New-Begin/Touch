@@ -1,21 +1,14 @@
 package com.newbegin.touch;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-
 import com.newbegin.touch.utils.JsonUtil;
 import com.newbegin.touch.utils.SocketConnect;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,20 +25,14 @@ import android.widget.Toast;
  *
  */
 public class LoginActivity extends Activity {
-	private TelephonyManager telephonyManager;//�绰���������
-	private EditText user;//�绰����
-	private EditText password;//����
-	private Button loginBtn;//��¼��ť
-	
-	//test zhty
-//	private static final String HOST = "192.168.0.100";
-//	private static final int PORT = 9997;
-//	private Socket socket = null;
-//	private BufferedReader in = null;
-//	private PrintWriter out = null;
-//	private String content = "";
+
 	public static SocketConnect sc;
 	
+	private TelephonyManager telephonyManager;//�绰���������
+	private EditText user;//�����˺�
+	private EditText password;//����
+	private Button loginBtn;//��¼��ť
+	private Button registerBtn;//ע�ᰴť
 	/**
 	 *
 	 */
@@ -58,6 +45,8 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		loginBtn = (Button) findViewById(R.id.loginBtn);	
 		sc = new SocketConnect();
+		registerBtn = (Button) findViewById(R.id.btn_register);	
+		
 		init();
 		
 		//test start socket
@@ -78,10 +67,6 @@ public class LoginActivity extends Activity {
 		// Handle action bar item clicks here. The action bar will
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			return true;
-		}
 		return super.onOptionsItemSelected(item);
 	}
 	
@@ -104,9 +89,7 @@ public class LoginActivity extends Activity {
 				
 				String usrStr = user.getText().toString();
 				String pwdStr = password.getText().toString();
-				Log.i("init", "onclick");
 				if(usrStr.equals("")){
-					Log.i("init", "usr");
 					Toast toast1 = Toast.makeText(getApplicationContext(),
 						     "�������û���", Toast.LENGTH_LONG);
 					toast1.setGravity(Gravity.CENTER, 0, 0);
@@ -121,9 +104,15 @@ public class LoginActivity extends Activity {
 					toast2.show();
 					return;
 				}
-				Log.i("init", "else");
-				Log.i("init", usrStr);
-				Log.i("init", pwdStr);
+				if(!isEmail(usrStr)){
+					Toast toast3 = Toast.makeText(getApplicationContext(),
+						     "��������ȷ�������ַ", Toast.LENGTH_LONG);
+					toast3.setGravity(Gravity.CENTER, 0, 0);
+					toast3.show();
+					password.setText("");
+					return;
+				}
+				
 				if(confirm(usrStr,pwdStr)){
 					//��ת��ƥ��Activity
 				}
@@ -138,6 +127,41 @@ public class LoginActivity extends Activity {
 			}
 			
 		});
+		
+		registerBtn.setOnClickListener(new View.OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+				//ComponentName componentName = new ComponentName(LoginActivity.this,"com.newbegin.RegisterActivity");
+				Intent intent=new Intent();
+				//intent.setComponent(componentName);
+				intent.setClass(LoginActivity.this, RegisterActivity.class);
+				startActivity(intent);
+			}
+			
+		});
+		
+		//ʧȥ����ʱ��������д�Ƿ���ȡ
+		user.setOnFocusChangeListener(new View.OnFocusChangeListener() { 
+
+			@Override 
+			public void onFocusChange(View v, boolean hasFocus) { 
+			if (user.hasFocus() == false) { 
+			String str = user.getText().toString();
+			if(!(str.equals(""))){
+				if(!isEmail(str)){
+					Toast toast3 = Toast.makeText(getApplicationContext(),
+						     "��������ȷ�������ַ", Toast.LENGTH_LONG);
+					toast3.setGravity(Gravity.CENTER, 0, 0);
+					toast3.show();
+				}
+			}
+			} 
+
+			} 
+			});
 	}
 	
 	/**
@@ -205,4 +229,14 @@ public class LoginActivity extends Activity {
 		sc.closeConnect();
 		super.onDestroy();
 	}
+	/**
+	 * �����ʽ�Ƿ���ȷ
+	 */
+	private boolean isEmail(String email) {
+		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+		Pattern p = Pattern.compile(str);
+		Matcher m = p.matcher(email);
+
+		return m.matches();
+		}
 }
