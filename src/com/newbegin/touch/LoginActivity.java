@@ -22,7 +22,7 @@ import android.widget.Toast;
  */
 public class LoginActivity extends Activity {
 	private TelephonyManager telephonyManager;//电话号码管理器
-	private EditText user;//电话号码
+	private EditText user;//邮箱账号
 	private EditText password;//密码
 	private Button loginBtn;//登录按钮
 	private Button registerBtn;//注册按钮
