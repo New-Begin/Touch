@@ -19,6 +19,7 @@ public class SocketConnect {
 	
 	/**端口号*/
 	private static final int PORT = 7775;
+	
 	/**Socket*/
 	private Socket socket = null;
 	
