@@ -1,5 +1,8 @@
 package com.newbegin.touch;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -23,7 +26,6 @@ public class RegisterActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-		Log.i("init", "oncreate");
 		user = (EditText) findViewById(R.id.user);
 		password = (EditText) findViewById(R.id.password);
 		password1 = (EditText) findViewById(R.id.password1);	
@@ -32,21 +34,20 @@ public class RegisterActivity extends Activity {
 		init();
 	}
 
+	/**
+	 * 初始化函数
+	 */
 	private void init(){
 		//获取本机电话号码
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneId = telephonyManager.getLine1Number();
 		user.setText(phoneId);
-		Log.i("init", "init");
 		
 		registerBtn.setOnClickListener(new Button.OnClickListener(){
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				
-Log.i("init", "click");
-				
 				String usrStr = user.getText().toString();
 				String pwdStr = password.getText().toString();
 				String pwdStr1 = password1.getText().toString();
@@ -73,6 +74,16 @@ Log.i("init", "click");
 						     "请再次输入密码", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
+					return;
+				}
+				
+				if(!isEmail(usrStr)){
+					Toast toast3 = Toast.makeText(getApplicationContext(),
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
+					toast3.setGravity(Gravity.CENTER, 0, 0);
+					toast3.show();
+					password.setText("");
+					password1.setText("");
 					return;
 				}
 
@@ -105,9 +116,40 @@ Log.i("init", "click");
 			
 		});
 		
+		//失去焦点时，邮箱填写是否正确
+		user.setOnFocusChangeListener(new View.OnFocusChangeListener() { 
+
+			@Override 
+			public void onFocusChange(View v, boolean hasFocus) { 
+			if (user.hasFocus() == false) { 
+			String str = user.getText().toString();
+			if(!(str.equals(""))){
+				if(!isEmail(str)){
+					Toast toast3 = Toast.makeText(getApplicationContext(),
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
+					toast3.setGravity(Gravity.CENTER, 0, 0);
+					toast3.show();
+				}
+			}
+			} 
+
+			} 
+			});
+		
 	}
 	
 	private boolean register(String usr,String pwd){
 		return true;
 	}
+	
+	/**
+	 * 邮箱格式是否正确
+	 */
+	private boolean isEmail(String email) {
+		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+		Pattern p = Pattern.compile(str);
+		Matcher m = p.matcher(email);
+
+		return m.matches();
+		}
 }

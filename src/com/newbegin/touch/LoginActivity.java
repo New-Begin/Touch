@@ -1,5 +1,8 @@
 package com.newbegin.touch;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -74,9 +77,7 @@ public class LoginActivity extends Activity {
 				
 				String usrStr = user.getText().toString();
 				String pwdStr = password.getText().toString();
-				Log.i("init", "onclick");
 				if(usrStr.equals("")){
-					Log.i("init", "usr");
 					Toast toast1 = Toast.makeText(getApplicationContext(),
 						     "请输入用户名", Toast.LENGTH_LONG);
 					toast1.setGravity(Gravity.CENTER, 0, 0);
@@ -91,9 +92,15 @@ public class LoginActivity extends Activity {
 					toast2.show();
 					return;
 				}
-				Log.i("init", "else");
-				Log.i("init", usrStr);
-				Log.i("init", pwdStr);
+				if(!isEmail(usrStr)){
+					Toast toast3 = Toast.makeText(getApplicationContext(),
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
+					toast3.setGravity(Gravity.CENTER, 0, 0);
+					toast3.show();
+					password.setText("");
+					return;
+				}
+				
 				if(confirm(usrStr,pwdStr)){
 					//跳转到匹配Activity
 				}
@@ -122,6 +129,26 @@ public class LoginActivity extends Activity {
 			}
 			
 		});
+		
+		//失去焦点时，邮箱填写是否争取
+		user.setOnFocusChangeListener(new View.OnFocusChangeListener() { 
+
+			@Override 
+			public void onFocusChange(View v, boolean hasFocus) { 
+			if (user.hasFocus() == false) { 
+			String str = user.getText().toString();
+			if(!(str.equals(""))){
+				if(!isEmail(str)){
+					Toast toast3 = Toast.makeText(getApplicationContext(),
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
+					toast3.setGravity(Gravity.CENTER, 0, 0);
+					toast3.show();
+				}
+			}
+			} 
+
+			} 
+			});
 	}
 	
 	/**
@@ -133,4 +160,15 @@ public class LoginActivity extends Activity {
 	private boolean confirm(String usrStr,String pwdStr){
 		return false;
 	}
+	
+	/**
+	 * 邮箱格式是否正确
+	 */
+	private boolean isEmail(String email) {
+		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
+		Pattern p = Pattern.compile(str);
+		Matcher m = p.matcher(email);
+
+		return m.matches();
+		}
 }
