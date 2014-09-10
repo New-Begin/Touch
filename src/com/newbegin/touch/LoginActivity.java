@@ -24,6 +24,8 @@ import android.widget.Toast;
  *
  */
 public class LoginActivity extends Activity {
+	enum Result{SUCESS,EMAIL_NOEXSIT,PASSWORD_ERROR};
+	
 	private TelephonyManager telephonyManager;//电话号码管理器
 	private EditText user;//邮箱账号
 	private EditText password;//密码
@@ -101,7 +103,7 @@ public class LoginActivity extends Activity {
 					return;
 				}
 				
-				if(confirm(usrStr,pwdStr)){
+				if(confirm(usrStr,pwdStr) == Result.SUCESS){
 					//跳转到匹配Activity
 				}
 				else{
@@ -152,13 +154,13 @@ public class LoginActivity extends Activity {
 	}
 	
 	/**
-	 * 验证用户名、密码是否正确
+	 * 登录时验证用户名、密码是否正确
 	 * @param usrStr 
 	 * @param pwdStr
-	 * @return 正确返回true
+	 * @return SUCESS代表正确 EMAIL_NOEXSIT代表用户名不存在 PASSWORD_ERROR代表密码错误 
 	 */
-	private boolean confirm(String usrStr,String pwdStr){
-		return false;
+	private Result confirm(String usrStr,String pwdStr){
+		return Result.SUCESS;
 	}
 	
 	/**
