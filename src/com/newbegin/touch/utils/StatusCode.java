@@ -17,5 +17,6 @@ public class StatusCode {
 	 
 	//动作名，用于标识客户端传输数据的意义
 	public static final String LOGIN = "login";
+	public static final String REGISTER = "register";
 
 }
