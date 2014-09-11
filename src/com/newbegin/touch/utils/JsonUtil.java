@@ -8,11 +8,10 @@ public class JsonUtil {
 	 * @param pwd
 	 * @return json
 	 */
-	public static String UserPwd2Json(String user, String pwd) {
+	public static String UserPwd2Json(String user, String pwd, String operType) {
 		// refer:{"action":"login", "firstName":"John" , "lastName":"Doe" }
 		// Java转义字符
-//		String operType = "login";
-		String str = "{\"action\":\"" + StatusCode.ACTION_LOGIN + "\",\"user\":\"" + user
+		String str = "{\"action\":\"" + operType + "\",\"user\":\"" + user
 				+ "\" , \"pwd\":\"" + pwd + "\" }";
 		return str;
 	}

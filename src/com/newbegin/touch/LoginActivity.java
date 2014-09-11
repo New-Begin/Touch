@@ -86,7 +86,7 @@ public class LoginActivity extends Activity {
 			public void onClick(View v) {
 
 				//zhty test
-				sc.sendInfo(JsonUtil.UserPwd2Json("zhengty", "123456"));
+				sc.sendInfo(JsonUtil.UserPwd2Json("zhengty", "123456", StatusCode.ACTION_LOGIN));
 				
 				String usrStr = user.getText().toString();
 				String pwdStr = password.getText().toString();
@@ -172,7 +172,7 @@ public class LoginActivity extends Activity {
 	 * @return SUCESS代表正确 EMAIL_NOEXSIT代表用户名不存在 PASSWORD_ERROR代表密码错误 
 	 */
 	private int confirm(String usrStr,String pwdStr){
-		sc.sendInfo(JsonUtil.UserPwd2Json(usrStr, pwdStr));
+		sc.sendInfo(JsonUtil.UserPwd2Json(usrStr, pwdStr, StatusCode.ACTION_LOGIN));
 		return Integer.parseInt(sc.getContent());
 	}
 	
