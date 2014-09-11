@@ -2,6 +2,8 @@ package com.newbegin.touch;
 
 import com.newbegin.touch.utils.JsonUtil;
 import com.newbegin.touch.utils.SocketConnect;
+import com.newbegin.touch.utils.StatusCode;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -112,7 +114,7 @@ public class LoginActivity extends Activity {
 					return;
 				}
 				
-				if(confirm(usrStr,pwdStr)){
+				if(confirm(usrStr,pwdStr) == StatusCode.SUCCESS){
 					//��ת��ƥ��Activity
 				}
 				else{
