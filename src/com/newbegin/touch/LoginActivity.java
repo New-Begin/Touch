@@ -22,7 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 /**
- * ��¼����
+ * 登录界面
  * @author new begin
  *
  */
@@ -30,11 +30,11 @@ public class LoginActivity extends Activity {
 
 	public SocketConnect sc;
 	
-	private TelephonyManager telephonyManager;//�绰���������
-	private EditText user;//�����˺�
-	private EditText password;//����
-	private Button loginBtn;//��¼��ť
-	private Button registerBtn;//ע�ᰴť
+	private TelephonyManager telephonyManager;//电话号码管理器
+	private EditText user;//邮箱账号
+	private EditText password;//密码
+	private Button loginBtn;//登录按钮
+	private Button registerBtn;//注册按钮
 	/**
 	 *
 	 */
@@ -72,10 +72,10 @@ public class LoginActivity extends Activity {
 	}
 	
 	/**
-	 * ��ʼ������
+	 * 初始化函数
 	 */
 	private void init(){
-		//��ȡ����绰����
+		//获取本机电话号码
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneId = telephonyManager.getLine1Number();
 		user.setText(phoneId);
@@ -92,7 +92,7 @@ public class LoginActivity extends Activity {
 				String pwdStr = password.getText().toString();
 				if(usrStr.equals("")){
 					Toast toast1 = Toast.makeText(getApplicationContext(),
-						     "�������û���", Toast.LENGTH_LONG);
+						     "请输入用户名", Toast.LENGTH_LONG);
 					toast1.setGravity(Gravity.CENTER, 0, 0);
 					toast1.show();
 					return;
@@ -100,14 +100,14 @@ public class LoginActivity extends Activity {
 				else if(pwdStr.equals("")){
 					Log.i("init", "pwd");
 					Toast toast2 = Toast.makeText(getApplicationContext(),
-						     "����������", Toast.LENGTH_LONG);
+						     "请输入密码", Toast.LENGTH_LONG);
 					toast2.setGravity(Gravity.CENTER, 0, 0);
 					toast2.show();
 					return;
 				}
 				if(!isEmail(usrStr)){
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "��������ȷ�������ַ", Toast.LENGTH_LONG);
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					password.setText("");
@@ -115,11 +115,11 @@ public class LoginActivity extends Activity {
 				}
 				
 				if(confirm(usrStr,pwdStr) == StatusCode.SUCCESS){
-					//��ת��ƥ��Activity
+					//跳转到匹配Activity
 				}
 				else{
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "�û�����������", Toast.LENGTH_LONG);
+						     "用户名或密码错误", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					password.setText("");
@@ -144,7 +144,7 @@ public class LoginActivity extends Activity {
 			
 		});
 		
-		//ʧȥ����ʱ��������д�Ƿ���ȡ
+		//失去焦点时，邮箱填写是否正确
 		user.setOnFocusChangeListener(new View.OnFocusChangeListener() { 
 
 			@Override 
@@ -154,7 +154,7 @@ public class LoginActivity extends Activity {
 			if(!(str.equals(""))){
 				if(!isEmail(str)){
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "��������ȷ�������ַ", Toast.LENGTH_LONG);
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 				}
@@ -232,7 +232,7 @@ public class LoginActivity extends Activity {
 		super.onDestroy();
 	}
 	/**
-	 * �����ʽ�Ƿ���ȷ
+	 * 邮箱格式是否正确
 	 */
 	private boolean isEmail(String email) {
 		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
