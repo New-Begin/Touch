@@ -4,6 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.newbegin.touch.utils.JsonUtil;
+import com.newbegin.touch.utils.StatusCode;
 
 import android.app.Activity;
 import android.content.Context;
@@ -93,7 +94,7 @@ public class RegisterActivity extends Activity {
 				}
 
 				if(pwdStr.equals(pwdStr1)){
-					if(register(usrStr,pwdStr) == Result.SUCESS){
+					if(register(usrStr,pwdStr) == StatusCode.SUCCESS){
 						Toast toast4 = Toast.makeText(getApplicationContext(),
 							     "ע��ɹ�", Toast.LENGTH_LONG);
 						toast4.setGravity(Gravity.CENTER, 0, 0);
