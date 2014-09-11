@@ -22,11 +22,11 @@ public class RegisterActivity extends Activity {
 	
 	enum Result{SUCESS,EMAIL_EXSIT,NETWORK_ERROR};
 	
-	private TelephonyManager telephonyManager;//�绰���������
-	private EditText user;//�����˺�
-	private EditText password;//����
-	private EditText password1;//�ظ�����
-	private Button registerBtn;//ע�ᰴť
+	private TelephonyManager telephonyManager;//电话号码管理器
+	private EditText user;//邮箱账号
+	private EditText password;//密码
+	private EditText password1;//重复密码
+	private Button registerBtn;//注册按钮
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +41,10 @@ public class RegisterActivity extends Activity {
 	}
 
 	/**
-	 * ��ʼ������
+	 * 初始化函数
 	 */
 	private void init(){
-		//��ȡ����绰����
+		//获取本机电话号码
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneId = telephonyManager.getLine1Number();
 		user.setText(phoneId);
@@ -61,7 +61,7 @@ public class RegisterActivity extends Activity {
 				if(usrStr.equals("")){
 					Log.i("init", "usr");
 					Toast toast1 = Toast.makeText(getApplicationContext(),
-						     "�������û���", Toast.LENGTH_LONG);
+						     "请输入用户名", Toast.LENGTH_LONG);
 					toast1.setGravity(Gravity.CENTER, 0, 0);
 					toast1.show();
 					return;
@@ -69,7 +69,7 @@ public class RegisterActivity extends Activity {
 				else if(pwdStr.equals("")){
 					Log.i("init", "pwd");
 					Toast toast2 = Toast.makeText(getApplicationContext(),
-						     "����������", Toast.LENGTH_LONG);
+						     "请输入密码", Toast.LENGTH_LONG);
 					toast2.setGravity(Gravity.CENTER, 0, 0);
 					toast2.show();
 					return;
@@ -77,7 +77,7 @@ public class RegisterActivity extends Activity {
 				else if(pwdStr1.equals("")){
 					Log.i("init", "pwd");
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "���ٴ���������", Toast.LENGTH_LONG);
+						     "请再次输入密码", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					return;
@@ -85,7 +85,7 @@ public class RegisterActivity extends Activity {
 				
 				if(!isEmail(usrStr)){
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "��������ȷ�������ַ", Toast.LENGTH_LONG);
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					password.setText("");
@@ -96,13 +96,13 @@ public class RegisterActivity extends Activity {
 				if(pwdStr.equals(pwdStr1)){
 					if(register(usrStr,pwdStr) == StatusCode.SUCCESS){
 						Toast toast4 = Toast.makeText(getApplicationContext(),
-							     "ע��ɹ�", Toast.LENGTH_LONG);
+							     "注册成功", Toast.LENGTH_LONG);
 						toast4.setGravity(Gravity.CENTER, 0, 0);
 						toast4.show();
 					}
 					else{
 						Toast toast5 = Toast.makeText(getApplicationContext(),
-							     "�������ѱ�ע��", Toast.LENGTH_LONG);
+							     "该邮箱已被注册", Toast.LENGTH_LONG);
 						toast5.setGravity(Gravity.CENTER, 0, 0);
 						toast5.show();
 						password.setText("");
@@ -111,7 +111,7 @@ public class RegisterActivity extends Activity {
 				}
 				else{
 					Toast toast6 = Toast.makeText(getApplicationContext(),
-						     "���벻һ��,����������", Toast.LENGTH_LONG);
+						     "密码不一致,请重新输入", Toast.LENGTH_LONG);
 					toast6.setGravity(Gravity.CENTER, 0, 0);
 					toast6.show();
 					password.setText("");
@@ -122,7 +122,7 @@ public class RegisterActivity extends Activity {
 			
 		});
 		
-		//ʧȥ����ʱ��������д�Ƿ���ȷ
+		//失去焦点时，邮箱填写是否正确
 		user.setOnFocusChangeListener(new View.OnFocusChangeListener() { 
 
 			@Override 
@@ -132,7 +132,7 @@ public class RegisterActivity extends Activity {
 			if(!(str.equals(""))){
 				if(!isEmail(str)){
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "��������ȷ�������ַ", Toast.LENGTH_LONG);
+						     "请输入正确的邮箱地址", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 				}
@@ -156,7 +156,7 @@ public class RegisterActivity extends Activity {
 	}
 	
 	/**
-	 * �����ʽ�Ƿ���ȷ
+	 * 邮箱格式是否正确
 	 */
 	private boolean isEmail(String email) {
 		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
