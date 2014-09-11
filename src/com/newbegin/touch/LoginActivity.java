@@ -113,9 +113,13 @@ public class LoginActivity extends Activity {
 					password.setText("");
 					return;
 				}
-				
+				//验证密码
 				if(confirm(usrStr,pwdStr) == StatusCode.SUCCESS){
 					//跳转到匹配Activity
+					Intent intent=new Intent();
+					//intent.setComponent(componentName);
+					intent.setClass(LoginActivity.this, MatchActivity.class);
+					startActivity(intent);
 				}
 				else{
 					Toast toast3 = Toast.makeText(getApplicationContext(),
