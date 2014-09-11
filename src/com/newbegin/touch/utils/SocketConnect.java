@@ -32,13 +32,25 @@ public class SocketConnect {
 	/**接收到的内容*/
 	private String content = "";
 	
-	public SocketConnect(){
+	//私有的默认构造子  
+	private SocketConnect(){
 		Log.i("tag", "zhty SocketConnect()...");
 		this.mThread.start();
 	}
+		
+	//已经自行实例化   
+    private static final SocketConnect sc = new SocketConnect();
+    
+    //静态工厂方法   
+    public static SocketConnect getInstance() {  
+        return sc;  
+    } 
+    
 
 	/**
 	 * thread
+	 * 1.建立Socket连接
+	 * 2.监听服务器发送的信息
 	 */
 	private Thread mThread = new Thread(new Runnable() {
 

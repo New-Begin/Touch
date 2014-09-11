@@ -2,6 +2,8 @@ package com.newbegin.touch;
 
 import com.newbegin.touch.utils.JsonUtil;
 import com.newbegin.touch.utils.SocketConnect;
+import com.newbegin.touch.utils.StatusCode;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +28,7 @@ import android.widget.Toast;
  */
 public class LoginActivity extends Activity {
 
-	public static SocketConnect sc;
+	public SocketConnect sc;
 	
 	private TelephonyManager telephonyManager;//�绰���������
 	private EditText user;//�����˺�
@@ -45,7 +47,7 @@ public class LoginActivity extends Activity {
 		password = (EditText) findViewById(R.id.password);
 		loginBtn = (Button) findViewById(R.id.loginBtn);	
 		registerBtn = (Button) findViewById(R.id.btn_register);	
-		sc = new SocketConnect();
+		sc = SocketConnect.getInstance();
 		init();
 		
 		//test start socket
@@ -112,7 +114,7 @@ public class LoginActivity extends Activity {
 					return;
 				}
 				
-				if(confirm(usrStr,pwdStr)){
+				if(confirm(usrStr,pwdStr) == StatusCode.SUCCESS){
 					//��ת��ƥ��Activity
 				}
 				else{

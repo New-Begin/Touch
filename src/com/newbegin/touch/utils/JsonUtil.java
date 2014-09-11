@@ -11,8 +11,8 @@ public class JsonUtil {
 	public static String UserPwd2Json(String user, String pwd) {
 		// refer:{"action":"login", "firstName":"John" , "lastName":"Doe" }
 		// Java转义字符
-		String operType = "login";
-		String str = "{\"action\":\"" + operType + "\",\"user\":\"" + user
+//		String operType = "login";
+		String str = "{\"action\":\"" + StatusCode.ACTION_LOGIN + "\",\"user\":\"" + user
 				+ "\" , \"pwd\":\"" + pwd + "\" }";
 		return str;
 	}

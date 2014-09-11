@@ -4,9 +4,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.newbegin.touch.utils.JsonUtil;
+import com.newbegin.touch.utils.SocketConnect;
+import com.newbegin.touch.utils.StatusCode;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.wifi.WifiConfiguration.Status;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -93,7 +96,7 @@ public class RegisterActivity extends Activity {
 				}
 
 				if(pwdStr.equals(pwdStr1)){
-					if(register(usrStr,pwdStr) == Result.SUCESS){
+					if(register(usrStr,pwdStr) == StatusCode.SUCCESS){
 						Toast toast4 = Toast.makeText(getApplicationContext(),
 							     "ע��ɹ�", Toast.LENGTH_LONG);
 						toast4.setGravity(Gravity.CENTER, 0, 0);
@@ -150,8 +153,8 @@ public class RegisterActivity extends Activity {
 	 * @return refer StatusCode.java
 	 */
 	private int register(String usr,String pwd){
-		LoginActivity.sc.sendInfo(JsonUtil.UserPwd2Json(usr, pwd));
-		return Integer.parseInt(LoginActivity.sc.getContent());
+		SocketConnect.getInstance().sendInfo(JsonUtil.UserPwd2Json(usr, pwd));
+		return Integer.parseInt(SocketConnect.getInstance().getContent());
 	}
 	
 	/**
