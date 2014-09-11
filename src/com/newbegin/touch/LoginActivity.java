@@ -44,9 +44,8 @@ public class LoginActivity extends Activity {
 		user = (EditText) findViewById(R.id.user);
 		password = (EditText) findViewById(R.id.password);
 		loginBtn = (Button) findViewById(R.id.loginBtn);	
-		sc = new SocketConnect();
 		registerBtn = (Button) findViewById(R.id.btn_register);	
-		
+		sc = new SocketConnect();
 		init();
 		
 		//test start socket
@@ -165,13 +164,14 @@ public class LoginActivity extends Activity {
 	}
 	
 	/**
-	 * ��֤�û��������Ƿ���ȷ
+	 * 登录时验证用户名、密码是否正确
 	 * @param usrStr 
 	 * @param pwdStr
-	 * @return ��ȷ����true
+	 * @return SUCESS代表正确 EMAIL_NOEXSIT代表用户名不存在 PASSWORD_ERROR代表密码错误 
 	 */
-	private boolean confirm(String usrStr,String pwdStr){
-		return false;
+	private int confirm(String usrStr,String pwdStr){
+		sc.sendInfo(JsonUtil.UserPwd2Json(usrStr, pwdStr));
+		return Integer.parseInt(sc.getContent());
 	}
 	
 	//test

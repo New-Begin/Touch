@@ -15,10 +15,10 @@ import android.util.Log;
 public class SocketConnect {
 
 	/**主机的IP*/
-	private static final String HOST = "192.168.0.109";
+	private static final String HOST = "192.168.0.100";
 	
 	/**端口号*/
-	private static final int PORT = 7775;
+	private static final int PORT = 7777;
 	
 	/**Socket*/
 	private Socket socket = null;
@@ -96,14 +96,18 @@ public class SocketConnect {
 	 */
 	public void sendInfo(String info){
 		Log.i("sendInfo", "out info = " + info);
-		if (!socket.isClosed()) {
-			if (socket.isConnected()) {
-				if (!socket.isOutputShutdown()) {
-					out.println(info);
-					Log.i("sendInfo", "in info = " + info);
+		if(socket != null) {
+			Log.i("tag", "socket != null");
+			if (!socket.isClosed()) {
+				if (socket.isConnected()) {
+					if (!socket.isOutputShutdown()) {
+						out.println(info);
+						Log.i("sendInfo", "in info = " + info);
+					}
 				}
 			}
 		}
+		
 	}
 	
 	/**
@@ -119,17 +123,20 @@ public class SocketConnect {
 	 */
 	public void closeConnect(){
 		//close socket
-		if (!socket.isClosed()) {
-			if (socket.isConnected()) {
-				if (!socket.isOutputShutdown()) {
-					out.println("exit");
+		if (socket != null) {
+			if (!socket.isClosed()) {
+				if (socket.isConnected()) {
+					if (!socket.isOutputShutdown()) {
+						out.println("exit");
+					}
+				}
+				try {
+					socket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
 			}
-			try {
-				socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
+		
 	}
 }

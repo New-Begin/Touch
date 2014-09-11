@@ -3,6 +3,8 @@ package com.newbegin.touch;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.newbegin.touch.utils.JsonUtil;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,11 +21,11 @@ public class RegisterActivity extends Activity {
 	
 	enum Result{SUCESS,EMAIL_EXSIT,NETWORK_ERROR};
 	
-	private TelephonyManager telephonyManager;//µç»°ºÅÂë¹ÜÀíÆ÷
-	private EditText user;//ÓÊÏäÕËºÅ
-	private EditText password;//ÃÜÂë
-	private EditText password1;//ÖØ¸´ÃÜÂë
-	private Button registerBtn;//×¢²á°´Å¥
+	private TelephonyManager telephonyManager;//ï¿½ç»°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private EditText user;//ï¿½ï¿½ï¿½ï¿½ï¿½Ëºï¿½
+	private EditText password;//ï¿½ï¿½ï¿½ï¿½
+	private EditText password1;//ï¿½Ø¸ï¿½ï¿½ï¿½ï¿½ï¿½
+	private Button registerBtn;//×¢ï¿½á°´Å¥
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +40,10 @@ public class RegisterActivity extends Activity {
 	}
 
 	/**
-	 * ³õÊ¼»¯º¯Êı
+	 * ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private void init(){
-		//»ñÈ¡±¾»úµç»°ºÅÂë
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ç»°ï¿½ï¿½ï¿½ï¿½
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String phoneId = telephonyManager.getLine1Number();
 		user.setText(phoneId);
@@ -57,7 +60,7 @@ public class RegisterActivity extends Activity {
 				if(usrStr.equals("")){
 					Log.i("init", "usr");
 					Toast toast1 = Toast.makeText(getApplicationContext(),
-						     "ÇëÊäÈëÓÃ»§Ãû", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast1.setGravity(Gravity.CENTER, 0, 0);
 					toast1.show();
 					return;
@@ -65,7 +68,7 @@ public class RegisterActivity extends Activity {
 				else if(pwdStr.equals("")){
 					Log.i("init", "pwd");
 					Toast toast2 = Toast.makeText(getApplicationContext(),
-						     "ÇëÊäÈëÃÜÂë", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast2.setGravity(Gravity.CENTER, 0, 0);
 					toast2.show();
 					return;
@@ -73,7 +76,7 @@ public class RegisterActivity extends Activity {
 				else if(pwdStr1.equals("")){
 					Log.i("init", "pwd");
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "ÇëÔÙ´ÎÊäÈëÃÜÂë", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½Ù´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					return;
@@ -81,7 +84,7 @@ public class RegisterActivity extends Activity {
 				
 				if(!isEmail(usrStr)){
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "ÇëÊäÈëÕıÈ·µÄÓÊÏäµØÖ·", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 					password.setText("");
@@ -92,13 +95,13 @@ public class RegisterActivity extends Activity {
 				if(pwdStr.equals(pwdStr1)){
 					if(register(usrStr,pwdStr) == Result.SUCESS){
 						Toast toast4 = Toast.makeText(getApplicationContext(),
-							     "×¢²á³É¹¦", Toast.LENGTH_LONG);
+							     "×¢ï¿½ï¿½É¹ï¿½", Toast.LENGTH_LONG);
 						toast4.setGravity(Gravity.CENTER, 0, 0);
 						toast4.show();
 					}
 					else{
 						Toast toast5 = Toast.makeText(getApplicationContext(),
-							     "¸ÃÓÊÏäÒÑ±»×¢²á", Toast.LENGTH_LONG);
+							     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ±ï¿½×¢ï¿½ï¿½", Toast.LENGTH_LONG);
 						toast5.setGravity(Gravity.CENTER, 0, 0);
 						toast5.show();
 						password.setText("");
@@ -107,7 +110,7 @@ public class RegisterActivity extends Activity {
 				}
 				else{
 					Toast toast6 = Toast.makeText(getApplicationContext(),
-						     "ÃÜÂë²»Ò»ÖÂ,ÇëÖØĞÂÊäÈë", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ë²»Ò»ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", Toast.LENGTH_LONG);
 					toast6.setGravity(Gravity.CENTER, 0, 0);
 					toast6.show();
 					password.setText("");
@@ -118,7 +121,7 @@ public class RegisterActivity extends Activity {
 			
 		});
 		
-		//Ê§È¥½¹µãÊ±£¬ÓÊÏäÌîĞ´ÊÇ·ñÕıÈ·
+		//Ê§È¥ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ´ï¿½Ç·ï¿½ï¿½ï¿½È·
 		user.setOnFocusChangeListener(new View.OnFocusChangeListener() { 
 
 			@Override 
@@ -128,7 +131,7 @@ public class RegisterActivity extends Activity {
 			if(!(str.equals(""))){
 				if(!isEmail(str)){
 					Toast toast3 = Toast.makeText(getApplicationContext(),
-						     "ÇëÊäÈëÕıÈ·µÄÓÊÏäµØÖ·", Toast.LENGTH_LONG);
+						     "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·", Toast.LENGTH_LONG);
 					toast3.setGravity(Gravity.CENTER, 0, 0);
 					toast3.show();
 				}
@@ -141,17 +144,18 @@ public class RegisterActivity extends Activity {
 	}
 	
 	/**
-	 * ×¢²áµ½·şÎñÆ÷
+	 * æ³¨å†Œåˆ°æœåŠ¡å™¨
 	 * @param usr
 	 * @param pwd
-	 * @return SUCESS´ú±í×¢²á³É¹¦ EMAIL_EXSIT´ú±íÓÊÏäÒÑ¾­´æÔÚNETWORK_ERROR´ú±íÍøÂçÒì³£
+	 * @return refer StatusCode.java
 	 */
-	private Result register(String usr,String pwd){
-		return Result.SUCESS;
+	private int register(String usr,String pwd){
+		LoginActivity.sc.sendInfo(JsonUtil.UserPwd2Json(usr, pwd));
+		return Integer.parseInt(LoginActivity.sc.getContent());
 	}
 	
 	/**
-	 * ÓÊÏä¸ñÊ½ÊÇ·ñÕıÈ·
+	 * ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ç·ï¿½ï¿½ï¿½È·
 	 */
 	private boolean isEmail(String email) {
 		String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
