@@ -26,26 +26,37 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
-        public static final int login_bg=0x7f020001;
-        public static final int login_logo=0x7f020002;
+        public static final int black_foot=0x7f020000;
+        public static final int chatto_bg_normal=0x7f020001;
+        public static final int head=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int login_bg=0x7f020004;
+        public static final int login_logo=0x7f020005;
     }
     public static final class id {
-        public static final int btn_register=0x7f090005;
-        public static final int confirmBtn=0x7f090007;
-        public static final int confirmMsg=0x7f090006;
-        public static final int imageView1=0x7f090001;
-        public static final int input=0x7f090000;
-        public static final int loginBtn=0x7f090004;
-        public static final int password=0x7f090003;
-        public static final int password1=0x7f090008;
-        public static final int registerBtn=0x7f090009;
-        public static final int user=0x7f090002;
+        public static final int btn_register=0x7f090009;
+        public static final int btn_send=0x7f090002;
+        public static final int confirmBtn=0x7f09000b;
+        public static final int confirmMsg=0x7f09000a;
+        public static final int et_sendmessage=0x7f090003;
+        public static final int imageView1=0x7f090005;
+        public static final int input=0x7f090004;
+        public static final int listview=0x7f090000;
+        public static final int loginBtn=0x7f090008;
+        public static final int msgText=0x7f09000f;
+        public static final int password=0x7f090007;
+        public static final int password1=0x7f09000c;
+        public static final int registerBtn=0x7f09000d;
+        public static final int rl_bottom=0x7f090001;
+        public static final int user=0x7f090006;
+        public static final int userImg=0x7f09000e;
     }
     public static final class layout {
-        public static final int activity_login=0x7f030000;
-        public static final int activity_match=0x7f030001;
-        public static final int activity_register=0x7f030002;
+        public static final int activity_chat=0x7f030000;
+        public static final int activity_login=0x7f030001;
+        public static final int activity_match=0x7f030002;
+        public static final int activity_register=0x7f030003;
+        public static final int msg=0x7f030004;
     }
     public static final class menu {
         public static final int login=0x7f080000;
